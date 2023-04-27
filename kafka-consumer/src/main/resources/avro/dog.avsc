@@ -1,0 +1,11 @@
+{
+  "type": "record",
+  "namespace": "com.my.data",
+  "name": "Dog",
+  "fields": [
+    {
+      "name": "Name",
+      "type": "string"
+    }
+  ]
+}
