@@ -29,7 +29,7 @@ class Trigger {
     DB db;
 
 
-    @KafkaListener(topics = "${dog.topic.name}")
+    @KafkaListener(topics = "${dog.topic.name}",containerFactory = "kafkaListenerContainerFactoryDog")
     public void receiveDog(final Dog dog) {
 
         LOGGER.info("Dog found : {}", dog);
@@ -37,7 +37,7 @@ class Trigger {
 
     }
 
-    @KafkaListener(topics = "${student.topic.name}")
+    @KafkaListener(topics = "${student.topic.name}",containerFactory = "kafkaListenerContainerFactory")
     public void receiveStudent(final Student student) {
 
         LOGGER.info("Student found : {}", student);
