@@ -10,6 +10,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.KafkaHeaders;
+import org.springframework.messaging.handler.annotation.Header;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 @EnableKafka
@@ -30,18 +33,18 @@ class Trigger {
 
 
     @KafkaListener(topics = "${dog.topic.name}",containerFactory = "kafkaListenerContainerFactoryDog")
-    public void receiveDog(final Dog dog) {
+    public void receiveDog(@Payload final Dog dog, @Header(KafkaHeaders.OFFSET) int offset, @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition) {
 
-        LOGGER.info("Dog found : {}", dog);
-        db.save(dog);
+        System.out.println("Dog : offset: "+offset+" partition: "+partition);
+        db.save(dog, offset);
 
     }
 
     @KafkaListener(topics = "${student.topic.name}",containerFactory = "kafkaListenerContainerFactory")
-    public void receiveStudent(final Student student) {
+    public void receiveStudent(@Payload final Student student,@Header(KafkaHeaders.OFFSET) int offset, @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition) {
 
-        LOGGER.info("Student found : {}", student);
-        db.save(student);
+        System.out.println("Student : offset: "+offset+" partition: "+partition);
+        db.save(student, offset);
 
     }
 

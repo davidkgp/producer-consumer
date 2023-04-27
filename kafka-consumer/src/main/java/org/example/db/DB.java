@@ -16,13 +16,13 @@ public class DB {
     @Autowired
     Connection connection;
 
-    public void save(final Dog dog){
+    public void save(final Dog dog, int offset){
 
         try {
             Faker faker = new Faker();
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO dump1 (ID, keyvalue) VALUES (?,?)");
 
-            preparedStatement.setInt(1, faker.number().randomDigit());
+            preparedStatement.setInt(1, offset);
             preparedStatement.setString(2, String.valueOf(dog.getName()));
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -30,13 +30,13 @@ public class DB {
         }
 
     }
-    public void save(final Student student){
+    public void save(final Student student, int offset){
 
         try {
             Faker faker = new Faker();
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO dump (ID, keyname, keyvalue) VALUES (?,?,?)");
 
-            preparedStatement.setInt(1, faker.number().randomDigit());
+            preparedStatement.setInt(1, offset);
             preparedStatement.setString(2, String.valueOf(student.getName()));
             preparedStatement.setString(3, faker.gameOfThrones().character());
             preparedStatement.executeUpdate();
