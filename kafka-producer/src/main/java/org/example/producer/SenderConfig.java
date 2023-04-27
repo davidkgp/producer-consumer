@@ -59,11 +59,11 @@ public class SenderConfig {
 
     @Bean
     public Producer<Student> producerStudent() {
-        return new Producer<Student>(studentTopicName);
+        return new Producer<Student>(studentTopicName,kafkaTemplate());
     }
 
     @Bean
     public Producer<Dog> producerDog() {
-        return new Producer<Dog>(dogTopicName);
+        return new Producer<Dog>(dogTopicName,kafkaTemplateDog());
     }
 }

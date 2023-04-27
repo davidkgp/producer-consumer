@@ -8,15 +8,15 @@ import org.springframework.kafka.core.KafkaTemplate;
 
 public class Producer<T> {
 
-    public Producer(String avroTopic) {
+    public Producer(final String avroTopic, final KafkaTemplate<String, T> kafkaTemplate) {
         this.avroTopic = avroTopic;
+        this.kafkaTemplate = kafkaTemplate;
     }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Producer.class);
 
     private String avroTopic;
 
-    @Autowired
     private KafkaTemplate<String, T> kafkaTemplate;
 
     public void send(T data) {
